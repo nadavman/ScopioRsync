@@ -43,7 +43,8 @@ class MultiRsyncProcess(object):
         output = [self.process.name]
         self.stdout_buffer.seek(0)
         stdout_data = self.stdout_buffer.readlines()
-        output.append(stdout_data.pop().strip() if stdout_data else '')
+        last_line = stdout_data.pop().strip() if stdout_data else ''
+        output.append(f'\t{last_line}')
         return "\n".join(output)
 
 

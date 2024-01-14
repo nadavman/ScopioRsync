@@ -1,5 +1,7 @@
-import subprocess
 from typing import List
+import subprocess
+import sys
+import os
 
 
 def _get_transfer_command(src_path: str, dest_path: str) -> List[str]:
@@ -19,6 +21,8 @@ def rsync_transfer(source_path: str, destination_path: str) -> int:
     Transfer files using rsync command.
     :return: the returncode of the rsync transfer.
     """
+    os.makedirs(destination_path, exist_ok=True)
+
     with (subprocess.Popen(
             _get_transfer_command(source_path, destination_path),
             stdout=subprocess.PIPE,
@@ -30,6 +34,10 @@ def rsync_transfer(source_path: str, destination_path: str) -> int:
             print(line.strip(), end='\r', flush=True)
 
         for line in process.stderr:
-            print(line.strip(), flush=True)
+            print(line.strip())
+
+    if process.returncode == 0:
+        print("\nTransfer completed successfully!")
+    sys.stdout.flush()
 
     return process.returncode
