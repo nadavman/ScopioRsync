@@ -72,8 +72,8 @@ def multi_rsync_transfer(source_paths: List[str], destination_paths: List[str]) 
 
 
 def main():
-    multi_rsync_transfer(["/tmp/test/t4", "/tmp/test/t2", "/tmp/test/t3"],
-                         ["/tmp/test2/t1", "/tmp/test2/t2", "/tmp/test2/t3"])
+    multi_rsync_transfer(["/tmp/test/t1", "/tmp/test/t2", "/tmp/test/not-exist"],
+                         ["/tmp/test2/t2", "/tmp/test2/t2", "/tmp/test2/t3"])
 
 
 if __name__ == '__main__':
