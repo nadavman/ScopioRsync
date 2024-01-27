@@ -27,17 +27,15 @@ def rsync_transfer(source_path: str, destination_path: str) -> int:
             _get_transfer_command(source_path, destination_path),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            universal_newlines=True,
-            bufsize=1
+            universal_newlines=True
     ) as process):
         for line in process.stdout:
-            print(line.strip(), end='\r', flush=True)
+            print(line.strip(), end='\r')
 
         for line in process.stderr:
             print(line.strip())
 
     if process.returncode == 0:
         print("\nTransfer completed successfully!")
-    sys.stdout.flush()
 
     return process.returncode
