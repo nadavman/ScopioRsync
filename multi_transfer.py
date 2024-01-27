@@ -29,7 +29,7 @@ class MultiRsyncProcess(object):
     def __init__(self, src_path: str, dest_path: str):
         self.src_path = src_path
         self.dest_path = dest_path
-        self.stdout_buffer = tempfile.TemporaryFile(mode="r+")
+        self.stdout_buffer = tempfile.TemporaryFile(mode="r+", buffering=1)
         self.process = multiprocessing.Process(name=src_path,
                                                target=redirect_output(rsync_transfer,
                                                                       self.stdout_buffer),
